@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Harta</h1>
+<div id="googleMap" style="width: 100%;height: 800px;">
+
+</div>
+    
+
+<script>
+    function myMap() {
+        const directionsService = new google.maps.DirectionsService();
+        var polylineOptionsActual2 = {
+            strokeColor: '#bf8bff',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        }
+        const directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true , polylineOptions: polylineOptionsActual2});
+        const start='44.97469869751231, 22.336401739749547';
+        const end='45.0488810379733, 21.86563904202647';
+        var mapProp= {
+        center:new google.maps.LatLng(44.385556,26.092706),
+        zoom:20,
+        };
+        var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+        directionsRenderer.setMap(map);
+        directionsService.route({
+            origin:start,
+            destination:end,
+            travelMode: google.maps.TravelMode.DRIVING,
+        }).then((response)=>{
+            directionsRenderer.setDirections(response);
+        })
+        const directionsService2 = new google.maps.DirectionsService();
+        var polylineOptionsActual = {
+            strokeColor: '#ff0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        }
+        const directionRenderer2 = new google.maps.DirectionsRenderer({suppressMarkers: true , polylineOptions: polylineOptionsActual});
+        directionRenderer2.setMap(map);
+        directionsService2.route({
+            origin:'45.105348423940434, 21.862007998655404',
+            destination:'45.28580238070143, 21.888250787558526',
+            travelMode: google.maps.TravelMode.DRIVING,
+        }).then((response)=>{
+            directionRenderer2.setDirections(response);
+        })
+    }
+    </script>
+    
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyeSzzeboVRSqfwOV0N7Wig0vjkf7io5s&callback=myMap"></script>
+    
+</body>
+</html>
